@@ -18,4 +18,10 @@ public class IndexController {
 
         return  "index";
     }
+
+    @RequestMapping("delete")
+    public String delete(){
+
+        return  "index";
+    }
 }
