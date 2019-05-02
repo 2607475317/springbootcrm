@@ -11,4 +11,11 @@ public class IndexController {
 
         return  "index";
     }
+
+
+    @RequestMapping("add")
+    public String add(){
+
+        return  "index";
+    }
 }
