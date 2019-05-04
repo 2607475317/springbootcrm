@@ -16,14 +16,19 @@ public class CourseOrderController {
         return  "courseorder/list";
     }
 
+    @RequestMapping("add")
+    public String add(){
+        return  "courseorder/add";
+    }
+
     @Autowired
     ICourseOrderService orderService;
 
 
     @RequestMapping("listJson")
     @ResponseBody
-    public PageResult<CourseOrder> listJson(){
+    public PageResult<CourseOrder> listJson(int page,int limit){
+        return orderService.findPageResult(null,page,limit);//limit就是pageSize
 
-        return orderService.findPageResult(null,1,10);
     }
 }

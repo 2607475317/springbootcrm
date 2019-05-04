@@ -20,6 +20,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
     </div>
 </script>
 <script type="text/html" id="barDemo">
@@ -30,7 +31,7 @@
 <script>
     layui.use('table', function(){
         var table = layui.table;
-
+        var layer = layui.layer;
         table.render({
             elem: '#test'
             ,url:'/courseorder/listJson'
@@ -41,16 +42,18 @@
                 [
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'name', title:'名字',  edit: 'text'}
-                ,{field:'wechat_mark', title:'微信备注', sort: true, totalRow: true}
+                ,{field:'wechat_mark', title:'微信备注'}
                 ,{field:'wechat_no', title:'微信ID', edit: 'text', sort: true}
-                ,{field:'qq_no', title:'QQ号',  sort: true, totalRow: true}
+                ,{field:'qq_no', title:'QQ号', }
                 ,{field:'course_name', title:'购买课程'}
-                ,{field:'course_price', title:'价格', }
+                ,{field:'course_price', title:'价格',  sort: true, totalRow: true}
                 ,{field:'order_date', title:'订单日期',}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo',}
                 ]
             ]
             ,page: true
+            ,limit:8
+            ,limits:[8,9]
         });
 
         //工具栏事件
@@ -68,8 +71,26 @@
                 case 'isAll':
                     layer.msg(checkStatus.isAll ? '全选': '未全选')
                     break;
+                case 'add':
+                    openAddPage();
+                    break;
             };
         });
+
+        function openAddPage() {
+            parent.layer.open({
+                type:2,//2跳转到页面
+                offset: 'auto',
+                title:'添加课程订单',
+                content:'/courseorder/add',
+                area: ['1000px', '600px'],
+                btn:'关闭全部',
+                btnAlign:'c',
+                yes:function () {
+                    parent.layer.closeAll();
+                }
+            });
+        }
     });
 </script>
 

@@ -21,7 +21,8 @@ public class CourseOrderServiceImpl implements ICourseOrderService{
 
         //定义一个Map-参数先不放在map,后面再处理
         Map<String,Object> params = new HashMap<String,Object>();
-        params.put("page",page);
+        params.put("start",(page - 1) * pageSize);
+        params.put("limit",pageSize);
 
         //定义结果
         PageResult<CourseOrder> result = new PageResult<CourseOrder>();

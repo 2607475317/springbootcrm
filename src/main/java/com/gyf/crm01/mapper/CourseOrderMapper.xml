@@ -5,6 +5,6 @@
       SELECT COUNT(*) FROM  t_course_order;
     </select>
     <select id="findListByMap" parameterType="map" resultType="courseOrder">
-      SELECT * FROM  t_course_order;
+      SELECT * FROM  t_course_order order by order_date desc limit #{start},#{limit};
     </select>
 </mapper>
