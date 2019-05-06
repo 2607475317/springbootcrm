@@ -41,9 +41,9 @@
             ,cols: [
                 [
                 {type: 'checkbox', fixed: 'left'}
-                ,{field:'name', title:'名字',  edit: 'text'}
+                ,{field:'name', title:'名字', }
                 ,{field:'wechat_mark', title:'微信备注'}
-                ,{field:'wechat_no', title:'微信ID', edit: 'text', sort: true}
+                ,{field:'wechat_no', title:'微信ID', sort: true}
                 ,{field:'qq_no', title:'QQ号', }
                 ,{field:'course_name', title:'购买课程'}
                 ,{field:'course_price', title:'价格',  sort: true, totalRow: true}
@@ -75,6 +75,24 @@
                     openAddPage();
                     break;
             };
+        });
+
+        //监听行双击事件
+        table.on('rowDouble(test)', function(obj){
+            //obj 同上
+            var order_id = obj.data.order_id;
+            parent.layer.open({
+                type:2,//2跳转到页面
+                offset: 'auto',
+                title:'课程订单详情',
+                content:'/courseorder/detail?order_id='+order_id,
+                area: ['1000px', '600px'],
+                btn:'关闭全部',
+                btnAlign:'c',
+                yes:function () {
+                    parent.layer.closeAll();
+                }
+            });
         });
 
         function openAddPage() {

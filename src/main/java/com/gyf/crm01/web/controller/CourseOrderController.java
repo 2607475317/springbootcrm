@@ -1,10 +1,12 @@
 package com.gyf.crm01.web.controller;
 
+import com.gyf.crm01.model.CURDResult;
 import com.gyf.crm01.model.CourseOrder;
 import com.gyf.crm01.model.PageResult;
 import com.gyf.crm01.service.ICourseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,5 +32,21 @@ public class CourseOrderController {
     public PageResult<CourseOrder> listJson(int page,int limit){
         return orderService.findPageResult(null,page,limit);//limit就是pageSize
 
+    }
+
+    @RequestMapping("save")
+    @ResponseBody
+    public CURDResult save(CourseOrder order){
+        System.out.println(order);
+        CURDResult rslt = new CURDResult();
+        orderService.save(order);
+        return rslt;
+    }
+
+    @RequestMapping("detail")
+    public String detail(Model model, String order_id){
+        CourseOrder order = orderService.findByOrderId(order_id);
+        model.addAttribute("order",order);
+        return "courseorder/detail";
     }
 }

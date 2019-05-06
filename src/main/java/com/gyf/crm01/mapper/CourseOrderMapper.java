@@ -20,4 +20,8 @@ public interface CourseOrderMapper {
      * @return
      */
     public List<CourseOrder> findListByMap(Map<String,Object> map);
+
+    public void insert(CourseOrder order);
+
+    public CourseOrder findByOrderId(String order_id);
 }

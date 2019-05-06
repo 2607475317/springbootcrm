@@ -31,4 +31,14 @@ public class CourseOrderServiceImpl implements ICourseOrderService{
         result.setData(orderMapper.findListByMap(params));
         return result;
     }
+
+    @Override
+    public void save(CourseOrder order) {
+        orderMapper.insert(order);
+    }
+
+    @Override
+    public CourseOrder findByOrderId(String order_id) {
+        return orderMapper.findByOrderId(order_id);
+    }
 }
