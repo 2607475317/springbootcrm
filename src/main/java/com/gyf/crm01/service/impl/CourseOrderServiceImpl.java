@@ -41,4 +41,9 @@ public class CourseOrderServiceImpl implements ICourseOrderService{
     public CourseOrder findByOrderId(String order_id) {
         return orderMapper.findByOrderId(order_id);
     }
+
+    @Override
+    public void delete(String order_id) {
+        orderMapper.deleteByOrderId(order_id);
+    }
 }

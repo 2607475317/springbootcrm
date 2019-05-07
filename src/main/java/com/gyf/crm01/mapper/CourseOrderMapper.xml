@@ -24,4 +24,8 @@
     <select id="findByOrderId" parameterType="string" resultType="courseOrder">
         select * from t_course_order where order_id = #{order_id}
     </select>
+
+    <select id="deleteByOrderId" parameterType="string">
+        delete from t_course_order where order_id = #{order_id}
+    </select>
 </mapper>

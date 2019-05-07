@@ -29,9 +29,11 @@
 </script>
 
 <script>
+    var $;
     layui.use('table', function(){
         var table = layui.table;
         var layer = layui.layer;
+        $ = layui.jquery;
         table.render({
             elem: '#test'
             ,url:'/courseorder/listJson'
@@ -95,6 +97,34 @@
             });
         });
 
+        //监听行工具事件
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'edit'){
+
+            } else if(layEvent === 'del'){
+                layer.confirm('真的删除行么' + obj.data.order_id, function(index){
+                //obj.del(); //删除对应行（tr）的DOM结构
+                    console.log(index);
+//                    layer.close(index);
+//                        //向服务端发送删除指令
+//                    doDelete(obj);
+                });
+            }
+        });
+
+        function doDelete(obj) {
+            var oId = obj.data.order_id;
+            $.get('/courseorder/delete',{order_id:oId},function (resp) {
+                //console.log(resp);
+                if(resp.success == 1){
+                    layer.msg("删除成功");
+                }else{
+                    layer.msg("删除失败" + resp.message);
+                }
+            });
+        }
         function openAddPage() {
             parent.layer.open({
                 type:2,//2跳转到页面
@@ -110,6 +140,10 @@
             });
         }
     });
+    
+    function doDelete() {
+        
+    }
 </script>
 
 </body>

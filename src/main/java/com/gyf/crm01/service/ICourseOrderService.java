@@ -9,4 +9,6 @@ public interface ICourseOrderService {
     public void save(CourseOrder order);
 
     public  CourseOrder findByOrderId(String order_id);
+
+    public void delete(String order_id);
 }

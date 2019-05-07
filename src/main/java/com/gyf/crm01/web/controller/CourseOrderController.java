@@ -49,4 +49,13 @@ public class CourseOrderController {
         model.addAttribute("order",order);
         return "courseorder/detail";
     }
+
+
+    @RequestMapping("delete")
+    @ResponseBody
+    public CURDResult delete(String order_id){
+        CURDResult rslt = new CURDResult();
+        orderService.delete(order_id);
+        return rslt;
+    }
 }
