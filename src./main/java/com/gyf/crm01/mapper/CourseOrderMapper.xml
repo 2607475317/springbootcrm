@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyf.crm01.mapper.CourseOrderMapper">
+    <select id="findCountByMap" parameterType="map" resultType="int">
+      SELECT COUNT(*) FROM  t_course_order;
+    </select>
+    <select id="findListByMap" parameterType="map" resultType="courseOrder">
+      SELECT * FROM  t_course_order order by order_date desc limit #{start},#{limit};
+    </select>
+    
+    <insert id="insert" parameterType="courseOrder">
+      INSERT INTO t_course_order
+          (uuid,order_id,name,wechat_no,wechat_mark,
+           qq_no,tel,course_name,course_price,order_date,
+           update_datetime,remark)
+        VALUES
+          (UUID(), UUID(), #{name}, #{wechat_no},#{wechat_mark},
+          #{qq_no}, #{tel}, #{course_name},
+          #{course_price},#{order_date},
+          CURRENT_TIMESTAMP(),#{remark});
+    </insert>
+    
+    
+    <select id="findByOrderId" parameterType="string" resultType="courseOrder">
+        select * from t_course_order where order_id = #{order_id}
+    </select>
+
+    <select id="deleteByOrderId" parameterType="string">
+        delete from t_course_order where order_id = #{order_id}
+    </select>
+
+    <update id="update" parameterType="courseOrder">
+        UPDATE t_course_order SET name = #{name},wechat_no = #{wechat_no},
+        wechat_mark = #{wechat_mark},qq_no = #{qq_no},
+        tel = #{tel},course_name = #{course_name},
+        course_price = #{course_price},order_date = #{order_date},
+        remark = #{remark}
+        WHERE
+        order_id = #{order_id}
+    </update>
+</mapper>
