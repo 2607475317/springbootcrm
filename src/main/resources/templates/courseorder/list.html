@@ -12,7 +12,28 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
+<br>
+<form class="layui-form" action="" id="searchform">
+    <div class="layui-form-item">
+        <label class="layui-form-label">WeChat号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="wechat_no" id="wechat_no" placeholder="请输入WeChat号" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">WeChat备注</label>
+        <div class="layui-input-inline">
+            <input type="text" name="wechat_mark"  id='wechat_mark' placeholder="请输入WeChat备注" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">QQ</label>
+        <div class="layui-input-inline">
+            <input type="text" name="qq_no" id='qq_no' placeholder="请输入qq" autocomplete="off" class="layui-input">
+        </div>
 
+        <div class="site-demo-button" id="top_options" style="margin-bottom: 0;margin-right: 20px" align="right" >
+            <button class="layui-btn layui-btn-sm" type="button" onclick="doSearch();">Search</button>
+            <button type="reset" class="layui-btn layui-btn-sm" >Rest</button>
+        </div>
+    </div>
+</form>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
@@ -54,8 +75,8 @@
                 ]
             ]
             ,page: true
-            ,limit:8
-            ,limits:[8,9]
+            ,limit:7
+            ,limits:[7,8,9]
         });
 
         //工具栏事件
@@ -102,14 +123,14 @@
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'edit'){
-
+                openEditPage(obj);
             } else if(layEvent === 'del'){
                 layer.confirm('真的删除行么' + obj.data.order_id, function(index){
                 //obj.del(); //删除对应行（tr）的DOM结构
                     console.log(index);
-//                    layer.close(index);
-//                        //向服务端发送删除指令
-//                    doDelete(obj);
+                    layer.close(index);
+                        //向服务端发送删除指令
+                    doDelete(obj);
                 });
             }
         });
@@ -120,6 +141,7 @@
                 //console.log(resp);
                 if(resp.success == 1){
                     layer.msg("删除成功");
+                    obj.del(); //删除对应行（tr）的DOM结构
                 }else{
                     layer.msg("删除失败" + resp.message);
                 }
@@ -131,6 +153,22 @@
                 offset: 'auto',
                 title:'添加课程订单',
                 content:'/courseorder/add',
+                area: ['1000px', '600px'],
+                btn:'关闭全部',
+                btnAlign:'c',
+                yes:function () {
+                    parent.layer.closeAll();
+                }
+            });
+        }
+
+        function openEditPage(obj) {
+            var order_id = obj.data.order_id;
+            parent.layer.open({
+                type:2,//2跳转到页面
+                offset: 'auto',
+                title:'修改课程订单',
+                content:'/courseorder/edit?order_id='+order_id,
                 area: ['1000px', '600px'],
                 btn:'关闭全部',
                 btnAlign:'c',

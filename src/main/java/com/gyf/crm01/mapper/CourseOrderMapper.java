@@ -26,4 +26,6 @@ public interface CourseOrderMapper {
     public CourseOrder findByOrderId(String order_id);
 
     public void deleteByOrderId(String order_id);
+
+    public void update(CourseOrder order);
 }

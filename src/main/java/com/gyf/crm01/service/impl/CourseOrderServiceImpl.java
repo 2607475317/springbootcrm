@@ -46,4 +46,9 @@ public class CourseOrderServiceImpl implements ICourseOrderService{
     public void delete(String order_id) {
         orderMapper.deleteByOrderId(order_id);
     }
+
+    @Override
+    public void update(CourseOrder order) {
+        orderMapper.update(order);
+    }
 }

@@ -11,4 +11,6 @@ public interface ICourseOrderService {
     public  CourseOrder findByOrderId(String order_id);
 
     public void delete(String order_id);
+
+    public void update(CourseOrder order);
 }

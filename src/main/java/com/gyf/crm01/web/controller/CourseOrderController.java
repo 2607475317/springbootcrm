@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
 @Controller
 @RequestMapping("courseorder")
@@ -39,7 +40,13 @@ public class CourseOrderController {
     public CURDResult save(CourseOrder order){
         System.out.println(order);
         CURDResult rslt = new CURDResult();
-        orderService.save(order);
+        if(StringUtils.isEmpty(order.getOrder_id())){
+            orderService.save(order);
+        }else{
+            System.out.println("修改");
+            orderService.update(order);
+        }
+
         return rslt;
     }
 
@@ -50,6 +57,12 @@ public class CourseOrderController {
         return "courseorder/detail";
     }
 
+    @RequestMapping("edit")
+    public String edit(Model model, String order_id){
+        CourseOrder order = orderService.findByOrderId(order_id);
+        model.addAttribute("order",order);
+        return "courseorder/edit";
+    }
 
     @RequestMapping("delete")
     @ResponseBody
